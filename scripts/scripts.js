@@ -263,6 +263,16 @@ function decorateButtons(main) {
 }
 
 /**
+ * Protects the AEM Sidekick from being opened by default
+ */
+function hideSidekick() {
+  const sidekick = document.querySelector('aem-sidekick');
+  if (sidekick && sidekick.hasAttribute('open')) {
+    sidekick.setAttribute('open', false);
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -276,6 +286,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateDMImages(main);
   decorateDefaultBlock(main);
+  hideSidekick();
 }
 
 
