@@ -715,33 +715,27 @@ function decorateBlock(block) {
  * @param {Element} block The block element
  */
 export function decorateDefaultBlock(main) {
-  const shortBlockName = 'default-content-wrapper';
-    
-
-  // Set block ID with shortBlockName and index
-  const blocks = main.querySelectorAll(`.${shortBlockName}`);
-  blocks.forEach((block, index) => {
-    block.id = `${shortBlockName}-${index}`;
-    block.setAttribute('data-block-name', shortBlockName);
-    
-    // Add indexed IDs to images within the block
-    const images = block.querySelectorAll('img');
-    images.forEach((img, imgIndex) => {
-      const imgId = `section_${index}_image_${imgIndex}`;
-      img.id = imgId;
-    });
-
-    // Skip content ID generation for blocks that handle it themselves (columns, cards, carousel)
-    const blocksWithCustomIDs = ['columns', 'cards', 'carousel'];
-    if (!blocksWithCustomIDs.includes(shortBlockName)) {
-      // Add indexed IDs to elements (h1-h6, p) within the block
-      ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].forEach((tag) => {
-        const elements = block.querySelectorAll(tag);
+  const sections = main.querySelectorAll('.section');
+  sections.forEach((section, sectionIndex) => {
+    // Find all default-content-wrapper elements in this section
+    const defaultWrappers = section.querySelectorAll('.default-content-wrapper');
+    defaultWrappers.forEach((wrapper, wrapperIndex) => {
+      wrapper.setAttribute('data-section-content-index', `${sectionIndex}_${wrapperIndex}`);
+      
+      // Add IDs to text elements (overwrite any existing IDs)
+      ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol'].forEach((tag) => {
+        const elements = wrapper.querySelectorAll(tag);
         elements.forEach((el, elIndex) => {
-          el.id = `section_${index}_${tag}_${elIndex}`;
+          el.id = `section_${sectionIndex}_content_${wrapperIndex}_${tag}_${elIndex}`;
         });
       });
-    }
+    });
+    
+    // Add IDs to images at section level (overwrite any existing IDs)
+    const images = section.querySelectorAll('.default-content-wrapper img');
+    images.forEach((img, imgIndex) => {
+      img.id = `section_${sectionIndex}_image_${imgIndex}`;
+    });
   });
 }
 
