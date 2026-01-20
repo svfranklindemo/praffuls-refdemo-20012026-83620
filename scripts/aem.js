@@ -725,8 +725,22 @@ export function decorateDefaultBlock(main) {
       // Add IDs to text elements (overwrite any existing IDs)
       ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol'].forEach((tag) => {
         const elements = wrapper.querySelectorAll(tag);
-        elements.forEach((el, elIndex) => {
-          el.id = `section_${sectionIndex}_content_${wrapperIndex}_${tag}_${elIndex}`;
+        let adjustedIndex = 0; // Use a separate counter for adjusted indexing
+        elements.forEach((el) => {
+          // Check if this is a <p> tag containing only an image (picture or img element)
+          if (tag === 'p') {
+            const hasOnlyImage = el.querySelector('picture, img') && 
+                                el.textContent.trim() === '';
+            
+            if (hasOnlyImage) {
+              // Skip ID assignment for <p> tags that only contain images
+              // The image itself will get its own ID separately
+              return; // Skip this element
+            }
+          }
+          
+          el.id = `section_${sectionIndex}_content_${wrapperIndex}_${tag}_${adjustedIndex}`;
+          adjustedIndex++;
         });
       });
     });
