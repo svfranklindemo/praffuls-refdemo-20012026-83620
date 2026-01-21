@@ -155,7 +155,7 @@ function setup() {
 /**
  * Protects the AEM Sidekick from being opened by default
  */
-function hideSidekick() {
+function hideSidekick(main) {
   const sidekick = document.querySelector('aem-sidekick');
   if (sidekick && sidekick.hasAttribute('open')) {
     sidekick.setAttribute('open', false);
