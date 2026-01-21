@@ -154,15 +154,39 @@ function setup() {
 
 /**
  * Protects the AEM Sidekick from being opened by default
- * @param {Element} main - The main element
  */
 function hideSidekick() {
   const sidekick = document.querySelector('aem-sidekick');
-  if (sidekick && sidekick.hasAttribute('open')) {
-    console.log('hiding sidekick');
-    sidekick.setAttribute('open', false);
+  
+  if (sidekick) {
+    // Sidekick found, hide it if open
+    if (sidekick.hasAttribute('open')) {
+      console.log('hiding sidekick');
+      sidekick.setAttribute('open', false);
+    }
   } else {
-    console.log('sidekick not found');
+    // Sidekick not found yet, watch for it to be added
+    console.log('sidekick not found, watching for it...');
+    
+    const observer = new MutationObserver((mutations, obs) => {
+      const sidekickElement = document.querySelector('aem-sidekick');
+      if (sidekickElement) {
+        console.log('sidekick found by observer, hiding...');
+        if (sidekickElement.hasAttribute('open')) {
+          sidekickElement.setAttribute('open', false);
+        }
+        obs.disconnect(); // Stop observing once found
+      }
+    });
+    
+    // Watch body for added child nodes
+    observer.observe(document.body, {
+      childList: true,
+      subtree: false
+    });
+    
+    // Stop observing after 5 seconds as a safety measure
+    setTimeout(() => observer.disconnect(), 10000);
   }
 }
 
