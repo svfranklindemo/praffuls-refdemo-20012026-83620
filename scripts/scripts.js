@@ -277,7 +277,6 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateDMImages(main);
   decorateDefaultBlock(main);
-  hideSidekick();
 }
 
 
@@ -396,6 +395,9 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+
+  // Hide sidekick after DOM is fully loaded
+  hideSidekick();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
