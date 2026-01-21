@@ -16,7 +16,8 @@ import {
   loadScript,
   toClassName,
   toCamelCase,
-  decorateDefaultBlock
+  decorateDefaultBlock,
+  hideSidekick
 } from './aem.js';
 import { picture, source, img } from './dom-helpers.js';
 
@@ -260,16 +261,6 @@ function decorateButtons(main) {
     }
   });
   libDecorateButtons(main);
-}
-
-/**
- * Protects the AEM Sidekick from being opened by default
- */
-function hideSidekick() {
-  const sidekick = document.querySelector('aem-sidekick');
-  if (sidekick && sidekick.hasAttribute('open')) {
-    sidekick.setAttribute('open', false);
-  }
 }
 
 /**

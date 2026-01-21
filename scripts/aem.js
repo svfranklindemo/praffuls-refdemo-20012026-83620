@@ -153,6 +153,16 @@ function setup() {
 }
 
 /**
+ * Protects the AEM Sidekick from being opened by default
+ */
+function hideSidekick() {
+  const sidekick = document.querySelector('aem-sidekick');
+  if (sidekick && sidekick.hasAttribute('open')) {
+    sidekick.setAttribute('open', false);
+  }
+}
+
+/**
  * Auto initialization.
  */
 
@@ -160,6 +170,7 @@ function init() {
   setup();
   sampleRUM.collectBaseURL = window.origin;
   sampleRUM();
+  hideSidekick();
 }
 
 /**
