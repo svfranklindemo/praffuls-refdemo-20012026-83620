@@ -917,4 +917,5 @@ export {
   toClassName,
   waitForFirstImage,
   wrapTextNodes,
+  hideSidekick
 };
