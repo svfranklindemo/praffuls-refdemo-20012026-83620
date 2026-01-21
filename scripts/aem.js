@@ -167,10 +167,10 @@ function hideSidekick() {
  */
 
 function init() {
+  hideSidekick();
   setup();
   sampleRUM.collectBaseURL = window.origin;
   sampleRUM();
-  hideSidekick();
 }
 
 /**
