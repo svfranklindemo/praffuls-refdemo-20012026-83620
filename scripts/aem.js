@@ -158,6 +158,7 @@ function setup() {
 function hideSidekick(main) {
   const sidekick = document.querySelector('aem-sidekick');
   if (sidekick && sidekick.hasAttribute('open')) {
+    console.log('hiding sidekick');
     sidekick.setAttribute('open', false);
   }
 }
