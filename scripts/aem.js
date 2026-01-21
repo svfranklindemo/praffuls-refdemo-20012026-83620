@@ -161,6 +161,8 @@ function hideSidekick() {
   if (sidekick && sidekick.hasAttribute('open')) {
     console.log('hiding sidekick');
     sidekick.setAttribute('open', false);
+  } else {
+    console.log('sidekick not found');
   }
 }
 
