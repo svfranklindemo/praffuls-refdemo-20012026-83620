@@ -156,14 +156,8 @@ function setup() {
  * Protects the AEM Sidekick from being opened by default
  * @param {Element} main - The main element
  */
-function hideSidekick(main) {
-  // Get parent element and find aem-sidekick sibling
-  const parent = main?.parentElement;
-  if (!parent) {
-    console.log('no parent element found');
-    return;
-  }
-  const sidekick = parent.querySelector('aem-sidekick');
+function hideSidekick() {
+  const sidekick = document.querySelector('aem-sidekick');
   if (sidekick && sidekick.hasAttribute('open')) {
     console.log('hiding sidekick');
     sidekick.setAttribute('open', false);

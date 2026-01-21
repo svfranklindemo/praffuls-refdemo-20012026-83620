@@ -277,7 +277,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateDMImages(main);
   decorateDefaultBlock(main);
-  hideSidekick(main);
+  hideSidekick();
 }
 
 
