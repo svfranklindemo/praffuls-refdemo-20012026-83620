@@ -154,9 +154,16 @@ function setup() {
 
 /**
  * Protects the AEM Sidekick from being opened by default
+ * @param {Element} main - The main element
  */
 function hideSidekick(main) {
-  const sidekick = document.querySelector('aem-sidekick');
+  // Get parent element and find aem-sidekick sibling
+  const parent = main?.parentElement;
+  if (!parent) {
+    console.log('no parent element found');
+    return;
+  }
+  const sidekick = parent.querySelector('aem-sidekick');
   if (sidekick && sidekick.hasAttribute('open')) {
     console.log('hiding sidekick');
     sidekick.setAttribute('open', false);
@@ -168,7 +175,6 @@ function hideSidekick(main) {
  */
 
 function init() {
-  hideSidekick();
   setup();
   sampleRUM.collectBaseURL = window.origin;
   sampleRUM();
