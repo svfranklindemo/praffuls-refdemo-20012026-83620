@@ -156,6 +156,18 @@ function setup() {
  * Protects the AEM Sidekick from being opened by default
  */
 function hideSidekick() {
+  // Check if URL contains required ZDP parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const hasZdpId = urlParams.has('zdp-id');
+  const hasZdpEnv = urlParams.has('zdp-env');
+  const hasZdpToken = urlParams.has('zdp-token');
+  
+  // Only proceed if all required ZDP parameters are present
+  if (!hasZdpId || !hasZdpEnv || !hasZdpToken) {
+    console.log('ZDP parameters not found, skipping sidekick hiding');
+    return;
+  }
+  
   const sidekick = document.querySelector('aem-sidekick');
   
   if (sidekick) {
@@ -185,7 +197,7 @@ function hideSidekick() {
       subtree: false
     });
     
-    // Stop observing after 5 seconds as a safety measure
+    // Stop observing after 10 seconds as a safety measure
     setTimeout(() => observer.disconnect(), 10000);
   }
 }
